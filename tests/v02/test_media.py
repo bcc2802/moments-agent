@@ -39,7 +39,7 @@ class MediaTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory(prefix="synthetic-moments-media-")
         self.addCleanup(self.tmp.cleanup)
-        self.work = Path(self.tmp.name)
+        self.work = Path(self.tmp.name).resolve()
         self.vault = self.work / "synthetic-vault"
         self.logs, self.archive = self.vault / "logs", self.vault / "archive"
         self.logs.mkdir(parents=True)

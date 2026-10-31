@@ -2,11 +2,16 @@ name: Verify workbench
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: verify-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   local:
@@ -34,7 +39,13 @@ jobs:
         run: |
           $MomentsEvidence = Join-Path $env:RUNNER_TEMP ('moments-verify-' + '${{ matrix.python }}')
           python -B scripts/verify_release.py --core-only --output-dir $MomentsEvidence
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $MomentsExit = $LASTEXITCODE
+          if ($MomentsExit -ne 0) {
+            # The verifier uses synthetic fixtures only; include failures for diagnosis.
+            $MomentsLog = Join-Path $MomentsEvidence 'unittest-output.txt'
+            if (Test-Path -LiteralPath $MomentsLog) { Get-Content -LiteralPath $MomentsLog -Encoding utf8 }
+            exit $MomentsExit
+          }
 
   cloud:
     name: Cloudflare / Node 24
@@ -59,6 +70,8 @@ jobs:
           cache-dependency-path: cloudflare/package-lock.json
       - name: Install locked dependencies
         run: npm ci
+      - name: Reject known high-risk dependencies
+        run: npm audit --audit-level=high
       - name: Test isolated database and model adapters
         run: npm test
       - name: Check frontend JavaScript
