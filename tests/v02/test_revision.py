@@ -24,7 +24,7 @@ class RevisionTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory(prefix="moments-revision-synthetic-")
         self.addCleanup(self.tmp.cleanup)
-        self.root = Path(self.tmp.name)
+        self.root = Path(self.tmp.name).resolve()
         self.vault = self.root / "synthetic-vault"
         self.logs = self.vault / "logs"
         self.archive = self.vault / "archive"
