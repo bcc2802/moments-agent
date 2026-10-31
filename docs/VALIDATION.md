@@ -11,9 +11,10 @@
 | Windows / Python 3.11.9 核心隔离回归 | 586项：0失败、0错误、6项可选图片测试跳过；另不加载 `test_media_image_ops.py`；110.672秒 |
 | 独立云端代码 | 42项测试通过，涵盖实际SQLite、模型传输、入口、静态资源、队列、DLQ及占位数据库部署守卫 |
 | 本地及云端前端 | 两份 `app.js` 的 Node 语法检查通过 |
-| 发行范围 | 130个显式白名单文件；正式MIT与版本元数据检查，发行前再次核对链接和哈希 |
+| 发行范围 | 130个显式白名单文件；正式MIT、版本、语法与内部链接检查通过，0问题、0警告 |
+| 完整ZIP解压回放 | 逐项MANIFEST哈希通过；新目录合成生命周期及本地HTTP静态页、会话校验、三项说明书保存和0历史上手检查通过；未调用模型 |
 
-GitHub CI 将验证 Windows 的 Python 3.11／3.12／3.13、Node 24、Wrangler dry-run和发行审计。[实际运行状态](https://github.com/bcc2802/moments-agent/actions)以对应提交为准。Release仅在这些检查成功及ZIP解压回放完成后发布。
+GitHub CI 工作流验证 Windows 的 Python 3.11／3.12／3.13、Node 24、Wrangler dry-run和发行审计。[实际运行状态](https://github.com/bcc2802/moments-agent/actions)以对应提交为准。Release仅在这些检查成功及ZIP解压回放完成后发布。
 
 依赖审计发现原Wrangler开发工具链的已知漏洞，因此发行工具版本升级为固定的4.156.0并更新锁文件；升级后实际完成 `npm ci`、42项测试及Wrangler dry-run；`npm audit` 返回0漏洞。ZIP逐项哈希与解压回放是Release发布门槛，远程CI状态可在上面的Actions链接核对。此升级不修改原个人网站部署。
 
