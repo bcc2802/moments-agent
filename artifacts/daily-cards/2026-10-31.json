@@ -1,0 +1,38 @@
+{
+  "status": "OK",
+  "date": "2026-10-31",
+  "output": "artifacts/daily-cards/2026-10-31.png",
+  "metadata": "artifacts/daily-cards/2026-10-31.json",
+  "sources": {
+    "movie": "fixture",
+    "imagery": "generated",
+    "quote": "film"
+  },
+  "movie": {
+    "tmdb_id": 77338,
+    "title": "触不可及",
+    "original_title": "Intouchables",
+    "director": "奥利维耶·纳卡什、埃里克·托莱达诺",
+    "year": 2011,
+    "qr_url": "https://www.themoviedb.org/movie/77338",
+    "image_ref": "generated"
+  },
+  "quote": {
+    "text": "我雇的不是一双手，是一个能让我抬头看路的人。",
+    "from": "触不可及",
+    "from_who": "",
+    "provider": "film",
+    "id": "film:77338:0"
+  },
+  "lunar": "农历 丙午年九月廿二",
+  "font": "noto-sans-sc",
+  "qr": true,
+  "notes": [
+    "已指定本地片单，本次不访问 TMDB 或一言。"
+  ],
+  "attribution": [
+    "影片资料与剧照（若已拉取）来自 TMDB（https://www.themoviedb.org/）。This product uses the TMDB API but is not endorsed or certified by TMDB.",
+    "金句与片名必须是同一部电影。一言仅在出处与该片一致时采用；否则使用片单里为该片准备的句子。",
+    "画面上的中文优先使用 Noto Sans SC（SIL Open Font License 1.1）。字体文件不随仓库分发。"
+  ]
+}

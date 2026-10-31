@@ -61,6 +61,17 @@
 
 热点、配图与飞书属于本地版的可选扩展，需要另外配置和验收。基础写作不依赖它们；云端首版聚焦写作、改稿和存档。[热点渠道与扩源](docs/HOT_SOURCES.md) · [可选功能](docs/OPTIONAL_FEATURES.md)
 
+## 电影日签
+
+写作之外，可以在本机生成一张竖版早安海报：中文片名、导演与年份、一句金句、画面和二维码。它不登录微信，不自动发朋友圈，也不进入云端定时任务。
+
+```bash
+python -m pip install pillow qrcode
+python -m daily_card generate --date 2026-10-31
+```
+
+到 [TMDB API 设置](https://www.themoviedb.org/settings/api) 申请免费密钥，并设为环境变量 `TMDB_API_KEY`。有密钥时拉取中文片名、导演、年份和剧照；没有密钥时用内置片单和生成画面。金句必须和这张海报上的片名是同一部电影：片单里每部片自带一句，一言只在出处对得上该片时才采用。PNG 与说明 JSON 写在 `artifacts/daily-cards/`。剧照版权归权利人，本工具未获 TMDB 背书。步骤、字体和离线参数见[电影日签](docs/DAILY_CARD.md)。
+
 ## 文档、反馈与许可
 
 - [填写个人说明书](docs/PERSONALIZATION.md) · [故障排查](docs/TROUBLESHOOTING.md)
