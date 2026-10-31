@@ -21,9 +21,12 @@ def api_key_from_env() -> str | None:
     return value or None
 
 
-def build_card(day: date, *, fixture: bool = False, api_key: str | None = None) -> Card:
-    chosen = pick_movie(day)
+def build_card(day: date, *, fixture: bool = False, api_key: str | None = None,
+               film_index: int | None = None, quote_index: int | None = None) -> Card:
+    chosen = pick_movie(day, index=film_index)
     notes: list[str] = []
+    if film_index is not None:
+        notes.append("已指定片单序号，不使用日期种子。")
     title = chosen["title"]
     original = chosen["original_title"]
     director = chosen["director"]
@@ -66,7 +69,10 @@ def build_card(day: date, *, fixture: bool = False, api_key: str | None = None) 
             else:
                 notes.append("TMDB 没有剧照路径，已改用生成画面。")
 
-    if fixture:
+    if quote_index is not None:
+        sentence = pick_bundled(day, index=quote_index)
+        notes.append("已指定本地句库序号，本次不访问一言。")
+    elif fixture:
         sentence = pick_bundled(day)
     else:
         try:

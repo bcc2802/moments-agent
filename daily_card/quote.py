@@ -41,9 +41,15 @@ def load_quotes(path: Path | None = None) -> list[dict]:
     return quotes
 
 
-def pick_bundled(day: date, quotes: list[dict] | None = None) -> dict:
+def pick_bundled(day: date, quotes: list[dict] | None = None, index: int | None = None) -> dict:
     rows = quotes if quotes is not None else load_quotes()
-    return dict(rows[stable_index(day, "quote", len(rows))])
+    if index is None:
+        chosen = stable_index(day, "quote", len(rows))
+    elif isinstance(index, bool) or not isinstance(index, int) or not 0 <= index < len(rows):
+        raise DailyCardError("句库序号超出范围。")
+    else:
+        chosen = index
+    return dict(rows[chosen])
 
 
 def parse_hitokoto(payload: dict) -> dict:

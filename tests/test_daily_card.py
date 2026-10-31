@@ -77,6 +77,20 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(card.quote, sentence["text"])
         self.assertIn("HITOKOTO", card.credit_lines()[1])
 
+    def test_indexes_pick_different_film_and_quote_for_one_date(self):
+        with patch("urllib.request.urlopen", side_effect=AssertionError("network")):
+            first = build_card(date(2026, 10, 31), film_index=0, quote_index=0)
+            second = build_card(date(2026, 10, 31), film_index=5, quote_index=3)
+        self.assertEqual(first.day, second.day)
+        self.assertEqual(first.lunar, second.lunar)
+        self.assertEqual(first.lunar, "农历 丙午年九月廿二")
+        self.assertNotEqual(first.title, second.title)
+        self.assertNotEqual(first.quote, second.quote)
+        self.assertEqual(first.quote_provider, "bundled")
+        self.assertEqual(first.title, "肖申克的救赎")
+        with self.assertRaises(DailyCardError):
+            build_card(date(2026, 10, 31), film_index=999, quote_index=0)
+
     def test_remote_failure_falls_back(self):
         with patch("daily_card.pipeline.fetch_details", side_effect=DailyCardError("请求失败（HTTP 401）。")), \
                 patch("daily_card.pipeline.fetch_hitokoto", side_effect=DailyCardError("一言暂时不可用。")):

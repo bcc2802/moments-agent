@@ -56,6 +56,8 @@ python -m daily_card generate --date 2026-10-31 --fixture --output /tmp/daily-ca
 
 `--fixture` 不访问 TMDB，也不访问一言。日期决定片单和本地金句，同一天重复运行会得到同一部电影。片单顺序参与种子，新片请加在 `movies.json` 末尾。
 
+同一天想多看几张时，用 `--film-index` 和 `--quote-index` 指定片单与句库序号（都从 0 起）。指定句库序号后不再访问一言。
+
 二维码指向 `https://www.themoviedb.org/movie/<编号>`，方便查看公开页面。未安装 `qrcode` 时，右下角保留一个方框，版式不变。
 
 ## 和写作工作台的边界

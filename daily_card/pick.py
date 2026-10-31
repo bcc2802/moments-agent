@@ -54,6 +54,12 @@ def load_movies(path: Path | None = None) -> list[dict]:
     return movies
 
 
-def pick_movie(day: date, movies: list[dict] | None = None) -> dict:
+def pick_movie(day: date, movies: list[dict] | None = None, index: int | None = None) -> dict:
     rows = movies if movies is not None else load_movies()
-    return dict(rows[stable_index(day, "movie", len(rows))])
+    if index is None:
+        chosen = stable_index(day, "movie", len(rows))
+    elif isinstance(index, bool) or not isinstance(index, int) or not 0 <= index < len(rows):
+        raise DailyCardError("片单序号超出范围。")
+    else:
+        chosen = index
+    return dict(rows[chosen])

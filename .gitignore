@@ -31,6 +31,8 @@ daily_card/fonts/*.ttc
 artifacts/daily-cards/*
 !artifacts/daily-cards/2026-10-31.png
 !artifacts/daily-cards/2026-10-31.json
+!artifacts/daily-cards/2026-10-31-v*.png
+!artifacts/daily-cards/2026-10-31-v*.json
 !artifacts/daily-cards/README.md
 .wrangler/
 dist/

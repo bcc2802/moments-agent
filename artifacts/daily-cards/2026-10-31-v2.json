@@ -1,0 +1,39 @@
+{
+  "status": "OK",
+  "date": "2026-10-31",
+  "output": "artifacts/daily-cards/2026-10-31-v2.png",
+  "metadata": "artifacts/daily-cards/2026-10-31-v2.json",
+  "sources": {
+    "movie": "fixture",
+    "imagery": "generated",
+    "quote": "hitokoto"
+  },
+  "movie": {
+    "tmdb_id": 240,
+    "title": "教父2",
+    "original_title": "The Godfather Part II",
+    "director": "弗朗西斯·福特·科波拉",
+    "year": 1974,
+    "qr_url": "https://www.themoviedb.org/movie/240",
+    "image_ref": "generated"
+  },
+  "quote": {
+    "text": "我的人生没有彩排，每天都是现场直播。",
+    "from": "爱情公寓",
+    "from_who": "吕小布",
+    "provider": "hitokoto",
+    "id": "cf3f2463-c593-420b-a002-d066c69917cf"
+  },
+  "lunar": "农历 丙午年九月廿二",
+  "font": "noto-sans-sc",
+  "qr": true,
+  "notes": [
+    "已指定片单序号，不使用日期种子。",
+    "未设置 TMDB_API_KEY，片名与画面使用本地片单和生成示例。"
+  ],
+  "attribution": [
+    "影片资料与剧照（若已拉取）来自 TMDB（https://www.themoviedb.org/）。This product uses the TMDB API but is not endorsed or certified by TMDB.",
+    "金句（若已拉取）来自一言 Hitokoto（https://hitokoto.cn/）。本地句库文字为本仓库原文。",
+    "画面上的中文优先使用 Noto Sans SC（SIL Open Font License 1.1）。字体文件不随仓库分发。"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "status": "OK",
+  "date": "2026-10-31",
+  "output": "artifacts/daily-cards/2026-10-31-v3.png",
+  "metadata": "artifacts/daily-cards/2026-10-31-v3.json",
+  "sources": {
+    "movie": "fixture",
+    "imagery": "generated",
+    "quote": "hitokoto"
+  },
+  "movie": {
+    "tmdb_id": 389,
+    "title": "十二怒汉",
+    "original_title": "12 Angry Men",
+    "director": "西德尼·吕美特",
+    "year": 1957,
+    "qr_url": "https://www.themoviedb.org/movie/389",
+    "image_ref": "generated"
+  },
+  "quote": {
+    "text": "你现在的气质里，藏着你走过的路，读过的书和爱过的人。",
+    "from": "卡萨布兰卡",
+    "from_who": "迈克尔·柯蒂茲",
+    "provider": "hitokoto",
+    "id": "7f16df4e-57f8-49af-a140-601e3d1e9f7c"
+  },
+  "lunar": "农历 丙午年九月廿二",
+  "font": "noto-sans-sc",
+  "qr": true,
+  "notes": [
+    "已指定片单序号，不使用日期种子。",
+    "未设置 TMDB_API_KEY，片名与画面使用本地片单和生成示例。"
+  ],
+  "attribution": [
+    "影片资料与剧照（若已拉取）来自 TMDB（https://www.themoviedb.org/）。This product uses the TMDB API but is not endorsed or certified by TMDB.",
+    "金句（若已拉取）来自一言 Hitokoto（https://hitokoto.cn/）。本地句库文字为本仓库原文。",
+    "画面上的中文优先使用 Noto Sans SC（SIL Open Font License 1.1）。字体文件不随仓库分发。"
+  ]
+}

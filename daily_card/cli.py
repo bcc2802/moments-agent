@@ -47,7 +47,8 @@ def generate(args) -> dict:
     destination = Path(args.output) if args.output else ROOT / "artifacts" / "daily-cards" / f"{day.isoformat()}.png"
     if not destination.is_absolute():
         destination = Path.cwd() / destination
-    card = build_card(day, fixture=args.fixture, api_key=api_key_from_env())
+    card = build_card(day, fixture=args.fixture, api_key=api_key_from_env(),
+                       film_index=args.film_index, quote_index=args.quote_index)
     fonts = _fonts(args)
     qr = render_card(card, fonts, destination)
     sidecar = destination.with_suffix(".json")
@@ -68,6 +69,10 @@ def main(argv=None) -> int:
     generate_parser.add_argument("--output", help="PNG 输出路径，默认 artifacts/daily-cards/<日期>.png")
     generate_parser.add_argument("--fixture", action="store_true",
                                  help="只用本地片单和句库，不访问 TMDB 或一言")
+    generate_parser.add_argument("--film-index", type=int,
+                                 help="片单序号，从 0 起，覆盖日期种子")
+    generate_parser.add_argument("--quote-index", type=int,
+                                 help="本地句库序号，从 0 起；指定后不访问一言")
     generate_parser.add_argument("--font", help="中文常规字体文件，跳过自动下载")
     generate_parser.add_argument("--font-bold", help="中文粗体字体文件")
     generate_parser.add_argument("--font-black", help="中文特粗字体文件，用于标题和日期")
