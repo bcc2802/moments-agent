@@ -70,7 +70,7 @@ python -m pip install pillow qrcode
 python -m daily_card generate --date 2026-10-31
 ```
 
-到 [TMDB API 设置](https://www.themoviedb.org/settings/api) 申请免费密钥，并设为环境变量 `TMDB_API_KEY`。有密钥时拉取中文片名、导演、年份和剧照；没有密钥时用内置片单和生成画面，金句仍会尝试 [一言](https://hitokoto.cn/)。PNG 与说明 JSON 写在 `artifacts/daily-cards/`。剧照版权归权利人，本工具未获 TMDB 背书。步骤、字体和离线参数见[电影日签](docs/DAILY_CARD.md)。
+到 [TMDB API 设置](https://www.themoviedb.org/settings/api) 申请免费密钥，并设为环境变量 `TMDB_API_KEY`。有密钥时拉取中文片名、导演、年份和剧照；没有密钥时用内置片单和生成画面。金句必须和这张海报上的片名是同一部电影：片单里每部片自带一句，一言只在出处对得上该片时才采用。PNG 与说明 JSON 写在 `artifacts/daily-cards/`。剧照版权归权利人，本工具未获 TMDB 背书。步骤、字体和离线参数见[电影日签](docs/DAILY_CARD.md)。
 
 ## 文档、反馈与许可
 

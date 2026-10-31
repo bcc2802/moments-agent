@@ -42,7 +42,6 @@
     "daily_card/cli.py",
     "daily_card/errors.py",
     "daily_card/fixtures/movies.json",
-    "daily_card/fixtures/quotes.json",
     "daily_card/fonts.py",
     "daily_card/http.py",
     "daily_card/lunar.py",

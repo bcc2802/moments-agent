@@ -20,7 +20,7 @@ from daily_card.fonts import find_system_cjk
 from daily_card.lunar import format_lunar
 from daily_card.pick import load_movies, stable_index
 from daily_card.pipeline import build_card
-from daily_card.quote import load_quotes, parse_hitokoto
+from daily_card.quote import parse_hitokoto, same_film
 from daily_card.tmdb import fetch_details, fetch_image
 
 
@@ -44,9 +44,8 @@ class LunarTests(unittest.TestCase):
 class CatalogTests(unittest.TestCase):
     def test_catalog_and_seed_are_stable(self):
         movies = load_movies()
-        quotes = load_quotes()
         self.assertGreaterEqual(len(movies), 30)
-        self.assertGreaterEqual(len(quotes), 8)
+        self.assertTrue(all(row["quotes"] and row["quotes"][0]["text"] for row in movies))
         self.assertEqual(len({row["tmdb_id"] for row in movies}), len(movies))
         day = date(2026, 10, 31)
         self.assertEqual(stable_index(day, "movie", len(movies)), stable_index(day, "movie", len(movies)))
@@ -58,7 +57,10 @@ class CatalogTests(unittest.TestCase):
             card = build_card(date(2026, 10, 31), fixture=True, api_key="should-not-be-sent")
         self.assertEqual(card.movie_source, "fixture")
         self.assertEqual(card.imagery, "generated")
-        self.assertEqual(card.quote_provider, "bundled")
+        self.assertEqual(card.quote_provider, "film")
+        self.assertEqual(card.quote_from, card.title)
+        self.assertNotIn("HITOKOTO", "\n".join(card.credit_lines()))
+        self.assertIn("THIS FILM", card.credit_lines()[1])
         self.assertNotIn("TMDB", "\n".join(card.credit_lines()))
         self.assertIn("GENERATED STILL", card.credit_lines()[0])
         blob = json.dumps(card.public_dict(output="a.png", metadata="a.json", font="system", qr=False),
@@ -66,37 +68,53 @@ class CatalogTests(unittest.TestCase):
         self.assertNotIn("should-not-be-sent", blob)
         self.assertIn("not endorsed", blob.lower())
 
-    def test_missing_key_keeps_catalog_and_can_use_hitokoto(self):
-        sentence = {"text": "早晨适合把一句旧台词再听一遍。", "from": "测试", "from_who": "",
-                    "id": "h1", "provider": "hitokoto"}
-        with patch("daily_card.pipeline.fetch_details", side_effect=AssertionError("tmdb")), \
-                patch("daily_card.pipeline.fetch_hitokoto", return_value=sentence):
+    def test_unrelated_hitokoto_is_rejected(self):
+        with patch("daily_card.pipeline.matching_hitokoto", return_value=None):
             card = build_card(date(2026, 10, 31), fixture=False, api_key=None)
         self.assertEqual(card.movie_source, "fixture")
+        self.assertEqual(card.quote_provider, "film")
+        self.assertEqual(card.quote_from, card.title)
+        self.assertNotIn("HITOKOTO", "\n".join(card.credit_lines()))
+
+    def test_hitokoto_is_used_only_when_it_names_the_film(self):
+        self.assertFalse(same_film("教父", ["教父2", "The Godfather Part II"]))
+        self.assertTrue(same_film("肖申克的救赎", ["肖申克的救赎"]))
+        self.assertTrue(same_film("The Shawshank Redemption", ["the shawshank redemption"]))
+        matched = {"text": "愿原力与你同在。", "from": "星球大战", "from_who": "",
+                   "id": "h1", "provider": "hitokoto"}
+        with patch("daily_card.pipeline.matching_hitokoto", return_value=matched):
+            card = build_card(date(2026, 10, 31), fixture=False, api_key=None, film_index=36)
+        self.assertEqual(card.title, "星球大战")
+        self.assertEqual(card.quote, "愿原力与你同在。")
+        self.assertEqual(card.quote_from, "星球大战")
         self.assertEqual(card.quote_provider, "hitokoto")
-        self.assertEqual(card.quote, sentence["text"])
         self.assertIn("HITOKOTO", card.credit_lines()[1])
 
     def test_indexes_pick_different_film_and_quote_for_one_date(self):
         with patch("urllib.request.urlopen", side_effect=AssertionError("network")):
             first = build_card(date(2026, 10, 31), film_index=0, quote_index=0)
-            second = build_card(date(2026, 10, 31), film_index=5, quote_index=3)
+            second = build_card(date(2026, 10, 31), fixture=True, film_index=5)
         self.assertEqual(first.day, second.day)
         self.assertEqual(first.lunar, second.lunar)
         self.assertEqual(first.lunar, "农历 丙午年九月廿二")
+        self.assertEqual(first.title, "肖申克的救赎")
+        self.assertEqual(first.quote_from, first.title)
+        self.assertEqual(second.quote_from, second.title)
         self.assertNotEqual(first.title, second.title)
         self.assertNotEqual(first.quote, second.quote)
-        self.assertEqual(first.quote_provider, "bundled")
-        self.assertEqual(first.title, "肖申克的救赎")
+        self.assertEqual(first.quote_provider, "film")
         with self.assertRaises(DailyCardError):
-            build_card(date(2026, 10, 31), film_index=999, quote_index=0)
+            build_card(date(2026, 10, 31), film_index=999)
+        with self.assertRaises(DailyCardError):
+            build_card(date(2026, 10, 31), film_index=0, quote_index=3)
 
     def test_remote_failure_falls_back(self):
         with patch("daily_card.pipeline.fetch_details", side_effect=DailyCardError("请求失败（HTTP 401）。")), \
-                patch("daily_card.pipeline.fetch_hitokoto", side_effect=DailyCardError("一言暂时不可用。")):
+                patch("daily_card.pipeline.matching_hitokoto", return_value=None):
             card = build_card(date(2026, 8, 29), fixture=False, api_key="not-a-real-key")
         self.assertEqual(card.movie_source, "fixture")
-        self.assertEqual(card.quote_provider, "bundled")
+        self.assertEqual(card.quote_provider, "film")
+        self.assertEqual(card.quote_from, card.title)
         self.assertTrue(any("401" in note for note in card.notes))
 
 
@@ -144,7 +162,6 @@ class ReleaseBoundaryTests(unittest.TestCase):
             "daily_card/pipeline.py",
             "daily_card/render.py",
             "daily_card/fixtures/movies.json",
-            "daily_card/fixtures/quotes.json",
             "docs/DAILY_CARD.md",
             "tests/test_daily_card.py",
         ):
@@ -181,7 +198,8 @@ class RenderTests(unittest.TestCase):
             self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
             payload = json.loads(completed.stdout)
             self.assertEqual(payload["sources"]["movie"], "fixture")
-            self.assertEqual(payload["sources"]["quote"], "bundled")
+            self.assertEqual(payload["sources"]["quote"], "film")
+            self.assertEqual(payload["quote"]["from"], payload["movie"]["title"])
             self.assertNotIn("TMDB_API_KEY", completed.stdout)
             from PIL import Image
             with Image.open(output) as image:

@@ -12,7 +12,7 @@ MONTHS = ("JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
 ATTRIBUTION = (
     "影片资料与剧照（若已拉取）来自 TMDB（https://www.themoviedb.org/）。"
     "This product uses the TMDB API but is not endorsed or certified by TMDB.",
-    "金句（若已拉取）来自一言 Hitokoto（https://hitokoto.cn/）。本地句库文字为本仓库原文。",
+    "金句与片名必须是同一部电影。一言仅在出处与该片一致时采用；否则使用片单里为该片准备的句子。",
     "画面上的中文优先使用 Noto Sans SC（SIL Open Font License 1.1）。字体文件不随仓库分发。",
 )
 
@@ -50,7 +50,7 @@ class Card:
         return f"https://www.themoviedb.org/movie/{self.tmdb_id}"
 
     def credit_lines(self) -> list[str]:
-        quote = "HITOKOTO" if self.quote_provider == "hitokoto" else "BUNDLED SENTENCES"
+        quote = "HITOKOTO" if self.quote_provider == "hitokoto" else "THIS FILM"
         if self.movie_source == "tmdb" and self.imagery == "tmdb":
             data = "FILM DATA & IMAGERY · TMDB"
         elif self.movie_source == "tmdb":

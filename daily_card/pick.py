@@ -43,6 +43,22 @@ def load_movies(path: Path | None = None) -> list[dict]:
         original = str(row.get("original_title") or "").strip()
         if tmdb_id <= 0 or tmdb_id in seen or not title or year < 1888:
             raise DailyCardError("本地片单有一条编号、标题或年份无效。")
+        raw_quotes = row.get("quotes")
+        if not isinstance(raw_quotes, list) or not raw_quotes:
+            raise DailyCardError("本地片单有一部影片没有金句。")
+        quotes = []
+        for item in raw_quotes:
+            if not isinstance(item, dict):
+                raise DailyCardError("本地片单的金句格式无效。")
+            text = str(item.get("text") or "").strip()
+            if not text or len(text) > 80:
+                raise DailyCardError("本地片单有一条金句长度不合适。")
+            quotes.append({"text": text, "from_who": str(item.get("from_who") or "").strip()})
+        aliases = []
+        for alias in row.get("aliases") or []:
+            name = str(alias).strip()
+            if name:
+                aliases.append(name)
         seen.add(tmdb_id)
         movies.append({
             "tmdb_id": tmdb_id,
@@ -50,6 +66,8 @@ def load_movies(path: Path | None = None) -> list[dict]:
             "original_title": original or title,
             "year": year,
             "director": director,
+            "quotes": quotes,
+            "aliases": aliases,
         })
     return movies
 

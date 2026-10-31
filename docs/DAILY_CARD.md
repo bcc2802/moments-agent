@@ -36,7 +36,11 @@ export TMDB_API_KEY=你的密钥
 
 ## 金句
 
-默认向 [一言](https://hitokoto.cn/) 要一句电影分类（`c=h`）的短句，太长或失败时再试其他分类，最后用仓库里的本地句库。本地句库是本仓库原文，不是影片台词。海报上的 `QUOTE FROM` 用来标这一句的出处。
+一张海报只讲一部电影：大标题是哪部片子，金句就必须出自同一部。`QUOTE FROM` 写的是这张海报上的中文片名。
+
+每部片在 `daily_card/fixtures/movies.json` 的 `quotes` 里有一句与该片相配的短句。没有 `TMDB_API_KEY` 或使用 `--fixture` 时，用的就是这句，页脚写 `QUOTE · THIS FILM`，不会写成一言。
+
+只有在 [一言](https://hitokoto.cn/) 返回的出处与这部片子的片名或原名一致时，才改用那一句，页脚才写 `QUOTE · HITOKOTO`。出处对不上就丢掉，仍用片单里该片的句子。
 
 ## 生成
 
@@ -54,9 +58,9 @@ python -m daily_card generate --date 2026-10-31
 python -m daily_card generate --date 2026-10-31 --fixture --output /tmp/daily-card.png
 ```
 
-`--fixture` 不访问 TMDB，也不访问一言。日期决定片单和本地金句，同一天重复运行会得到同一部电影。片单顺序参与种子，新片请加在 `movies.json` 末尾。
+`--fixture` 不访问 TMDB，也不访问一言。日期决定是哪部电影，金句跟那部电影走，同一天重复运行会得到同一部电影。片单顺序参与种子，新片请加在 `movies.json` 末尾，并带上属于该片的 `quotes`。
 
-同一天想多看几张时，用 `--film-index` 和 `--quote-index` 指定片单与句库序号（都从 0 起）。指定句库序号后不再访问一言。
+同一天想多看几张时，用 `--film-index` 指定另一部片（从 0 起）。`--quote-index` 只在该片自己的 `quotes` 里选一句，不会换成别的电影的句子。
 
 二维码指向 `https://www.themoviedb.org/movie/<编号>`，方便查看公开页面。未安装 `qrcode` 时，右下角保留一个方框，版式不变。
 

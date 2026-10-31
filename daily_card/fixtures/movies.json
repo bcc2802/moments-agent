@@ -1,321 +1,609 @@
 {
   "version": 1,
-  "note": "顺序参与日期种子，只在末尾追加。中文名仅在没有 TMDB 或接口没有中文名时使用。",
+  "note": "顺序参与日期种子，只在末尾追加。每部影片的 quotes 必须属于该片；海报上的金句出处就是这部片子的片名。",
   "movies": [
     {
       "tmdb_id": 278,
       "title": "肖申克的救赎",
       "original_title": "The Shawshank Redemption",
       "year": 1994,
-      "director": "弗兰克·德拉邦特"
+      "director": "弗兰克·德拉邦特",
+      "quotes": [
+        {
+          "text": "希望是美好的，也许是人间至善，而美好的事永不消逝。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 238,
       "title": "教父",
       "original_title": "The Godfather",
       "year": 1972,
-      "director": "弗朗西斯·福特·科波拉"
+      "director": "弗朗西斯·福特·科波拉",
+      "quotes": [
+        {
+          "text": "我会给他一个无法拒绝的条件。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 240,
       "title": "教父2",
       "original_title": "The Godfather Part II",
       "year": 1974,
-      "director": "弗朗西斯·福特·科波拉"
+      "director": "弗朗西斯·福特·科波拉",
+      "quotes": [
+        {
+          "text": "让朋友靠近，但要让敌人靠得更近。",
+          "from_who": ""
+        }
+      ],
+      "aliases": [
+        "教父II",
+        "The Godfather Part II"
+      ]
     },
     {
       "tmdb_id": 424,
       "title": "辛德勒的名单",
       "original_title": "Schindler's List",
       "year": 1993,
-      "director": "史蒂文·斯皮尔伯格"
+      "director": "史蒂文·斯皮尔伯格",
+      "quotes": [
+        {
+          "text": "救一个人，就等于救了整个世界。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 389,
       "title": "十二怒汉",
       "original_title": "12 Angry Men",
       "year": 1957,
-      "director": "西德尼·吕美特"
+      "director": "西德尼·吕美特",
+      "quotes": [
+        {
+          "text": "只要还有合理的怀疑，就不能判他有罪。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 129,
       "title": "千与千寻",
       "original_title": "千と千尋の神隠し",
       "year": 2001,
-      "director": "宫崎骏"
+      "director": "宫崎骏",
+      "quotes": [
+        {
+          "text": "曾经发生过的事情不会忘记，只是想不起来而已。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 13,
       "title": "阿甘正传",
       "original_title": "Forrest Gump",
       "year": 1994,
-      "director": "罗伯特·泽米吉斯"
+      "director": "罗伯特·泽米吉斯",
+      "quotes": [
+        {
+          "text": "生活像一盒巧克力，你永远不知道下一颗是什么味道。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 680,
       "title": "低俗小说",
       "original_title": "Pulp Fiction",
       "year": 1994,
-      "director": "昆汀·塔伦蒂诺"
+      "director": "昆汀·塔伦蒂诺",
+      "quotes": [
+        {
+          "text": "在巴黎，这东西叫皇家奶酪。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 155,
       "title": "蝙蝠侠：黑暗骑士",
       "original_title": "The Dark Knight",
       "year": 2008,
-      "director": "克里斯托弗·诺兰"
+      "director": "克里斯托弗·诺兰",
+      "quotes": [
+        {
+          "text": "为什么这么严肃？",
+          "from_who": ""
+        }
+      ],
+      "aliases": [
+        "黑暗骑士",
+        "The Dark Knight"
+      ]
     },
     {
       "tmdb_id": 122,
       "title": "指环王：王者无敌",
       "original_title": "The Lord of the Rings: The Return of the King",
       "year": 2003,
-      "director": "彼得·杰克逊"
+      "director": "彼得·杰克逊",
+      "quotes": [
+        {
+          "text": "朋友们，你们不必向任何人鞠躬。",
+          "from_who": ""
+        }
+      ],
+      "aliases": [
+        "王者归来",
+        "The Return of the King"
+      ]
     },
     {
       "tmdb_id": 550,
       "title": "搏击俱乐部",
       "original_title": "Fight Club",
       "year": 1999,
-      "director": "大卫·芬奇"
+      "director": "大卫·芬奇",
+      "quotes": [
+        {
+          "text": "搏击俱乐部的第一条规则，就是不要谈论搏击俱乐部。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 27205,
       "title": "盗梦空间",
       "original_title": "Inception",
       "year": 2010,
-      "director": "克里斯托弗·诺兰"
+      "director": "克里斯托弗·诺兰",
+      "quotes": [
+        {
+          "text": "一个念头，是世界上最容易传染的病毒。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 157336,
       "title": "星际穿越",
       "original_title": "Interstellar",
       "year": 2014,
-      "director": "克里斯托弗·诺兰"
+      "director": "克里斯托弗·诺兰",
+      "quotes": [
+        {
+          "text": "爱是唯一可以穿越时空的东西。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 603,
       "title": "黑客帝国",
       "original_title": "The Matrix",
       "year": 1999,
-      "director": "拉娜·沃卓斯基、莉莉·沃卓斯基"
+      "director": "拉娜·沃卓斯基、莉莉·沃卓斯基",
+      "quotes": [
+        {
+          "text": "不要试图弯曲勺子，能弯的只有你自己。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 597,
       "title": "泰坦尼克号",
       "original_title": "Titanic",
       "year": 1997,
-      "director": "詹姆斯·卡梅隆"
+      "director": "詹姆斯·卡梅隆",
+      "quotes": [
+        {
+          "text": "你跳，我也跳。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 98,
       "title": "角斗士",
       "original_title": "Gladiator",
       "year": 2000,
-      "director": "雷德利·斯科特"
+      "director": "雷德利·斯科特",
+      "quotes": [
+        {
+          "text": "你今天看见的，是我曾经的样子。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 637,
       "title": "这个杀手不太冷",
       "original_title": "Léon: The Professional",
       "year": 1994,
-      "director": "吕克·贝松"
+      "director": "吕克·贝松",
+      "quotes": [
+        {
+          "text": "人生总是这么痛苦吗？还是只有小时候这样？",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 11216,
       "title": "天堂电影院",
       "original_title": "Nuovo Cinema Paradiso",
       "year": 1988,
-      "director": "朱塞佩·托纳多雷"
+      "director": "朱塞佩·托纳多雷",
+      "quotes": [
+        {
+          "text": "生活不是电影，生活比电影苦。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 194,
       "title": "她",
       "original_title": "Her",
       "year": 2013,
-      "director": "斯派克·琼斯"
+      "director": "斯派克·琼斯",
+      "quotes": [
+        {
+          "text": "过去只是我们讲给自己的故事。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 38,
       "title": "暖暖内含光",
       "original_title": "Eternal Sunshine of the Spotless Mind",
       "year": 2004,
-      "director": "米歇尔·冈瑞"
+      "director": "米歇尔·冈瑞",
+      "quotes": [
+        {
+          "text": "在蒙托克见。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 244786,
       "title": "爆裂鼓手",
       "original_title": "Whiplash",
       "year": 2014,
-      "director": "达米恩·查泽雷"
+      "director": "达米恩·查泽雷",
+      "quotes": [
+        {
+          "text": "没有比「还不错」更有害的评价。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 313369,
       "title": "爱乐之城",
       "original_title": "La La Land",
       "year": 2016,
-      "director": "达米恩·查泽雷"
+      "director": "达米恩·查泽雷",
+      "quotes": [
+        {
+          "text": "星光之城，你是否只为我闪耀？",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 496243,
       "title": "寄生虫",
       "original_title": "기생충",
       "year": 2019,
-      "director": "奉俊昊"
+      "director": "奉俊昊",
+      "quotes": [
+        {
+          "text": "你知道什么计划不会失败吗？就是没有计划。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 490132,
       "title": "绿皮书",
       "original_title": "Green Book",
       "year": 2018,
-      "director": "彼得·法雷里"
+      "director": "彼得·法雷里",
+      "quotes": [
+        {
+          "text": "世界上有太多孤独的人害怕先踏出第一步。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 872585,
       "title": "奥本海默",
       "original_title": "Oppenheimer",
       "year": 2023,
-      "director": "克里斯托弗·诺兰"
+      "director": "克里斯托弗·诺兰",
+      "quotes": [
+        {
+          "text": "现在我成了死神，诸界的毁灭者。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 475557,
       "title": "小丑",
       "original_title": "Joker",
       "year": 2019,
-      "director": "托德·菲利普斯"
+      "director": "托德·菲利普斯",
+      "quotes": [
+        {
+          "text": "我曾以为人生是悲剧，后来发现它是喜剧。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 497,
       "title": "绿里奇迹",
       "original_title": "The Green Mile",
       "year": 1999,
-      "director": "弗兰克·德拉邦特"
+      "director": "弗兰克·德拉邦特",
+      "quotes": [
+        {
+          "text": "每个人都欠一次死亡，没有例外。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 769,
       "title": "好家伙",
       "original_title": "Goodfellas",
       "year": 1990,
-      "director": "马丁·斯科塞斯"
+      "director": "马丁·斯科塞斯",
+      "quotes": [
+        {
+          "text": "从我记事起，我就想做个黑帮。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 78,
       "title": "银翼杀手",
       "original_title": "Blade Runner",
       "year": 1982,
-      "director": "雷德利·斯科特"
+      "director": "雷德利·斯科特",
+      "quotes": [
+        {
+          "text": "所有这些时刻都会消失在时间里，像泪水消失在雨中。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 335984,
       "title": "银翼杀手2049",
       "original_title": "Blade Runner 2049",
       "year": 2017,
-      "director": "丹尼斯·维伦纽瓦"
+      "director": "丹尼斯·维伦纽瓦",
+      "quotes": [
+        {
+          "text": "你从没见过真正的奇迹。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 694,
       "title": "闪灵",
       "original_title": "The Shining",
       "year": 1980,
-      "director": "斯坦利·库布里克"
+      "director": "斯坦利·库布里克",
+      "quotes": [
+        {
+          "text": "只工作不玩耍，聪明杰克也变傻。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 1422,
       "title": "无间道风云",
       "original_title": "The Departed",
       "year": 2006,
-      "director": "马丁·斯科塞斯"
+      "director": "马丁·斯科塞斯",
+      "quotes": [
+        {
+          "text": "我不是警察。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 670,
       "title": "无间道",
       "original_title": "無間道",
       "year": 2002,
-      "director": "刘伟强、麦兆辉"
+      "director": "刘伟强、麦兆辉",
+      "quotes": [
+        {
+          "text": "对不起，我是警察。",
+          "from_who": ""
+        }
+      ],
+      "aliases": [
+        "無間道"
+      ]
     },
     {
       "tmdb_id": 346,
       "title": "七武士",
       "original_title": "七人の侍",
       "year": 1954,
-      "director": "黑泽明"
+      "director": "黑泽明",
+      "quotes": [
+        {
+          "text": "我们又败了。真正的赢家是那些农民。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 510,
       "title": "飞越疯人院",
       "original_title": "One Flew Over the Cuckoo's Nest",
       "year": 1975,
-      "director": "米洛斯·福尔曼"
+      "director": "米洛斯·福尔曼",
+      "quotes": [
+        {
+          "text": "至少，我试过了。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 105,
       "title": "回到未来",
       "original_title": "Back to the Future",
       "year": 1985,
-      "director": "罗伯特·泽米吉斯"
+      "director": "罗伯特·泽米吉斯",
+      "quotes": [
+        {
+          "text": "路？我们要去的地方，不需要路。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 11,
       "title": "星球大战",
       "original_title": "Star Wars",
       "year": 1977,
-      "director": "乔治·卢卡斯"
+      "director": "乔治·卢卡斯",
+      "quotes": [
+        {
+          "text": "愿原力与你同在。",
+          "from_who": ""
+        }
+      ],
+      "aliases": [
+        "Star Wars"
+      ]
     },
     {
       "tmdb_id": 77338,
       "title": "触不可及",
       "original_title": "Intouchables",
       "year": 2011,
-      "director": "奥利维耶·纳卡什、埃里克·托莱达诺"
+      "director": "奥利维耶·纳卡什、埃里克·托莱达诺",
+      "quotes": [
+        {
+          "text": "我雇的不是一双手，是一个能让我抬头看路的人。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 120467,
       "title": "布达佩斯大饭店",
       "original_title": "The Grand Budapest Hotel",
       "year": 2014,
-      "director": "韦斯·安德森"
+      "director": "韦斯·安德森",
+      "quotes": [
+        {
+          "text": "在这野蛮的世界里，文明还有微光。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 10681,
       "title": "机器人总动员",
       "original_title": "WALL·E",
       "year": 2008,
-      "director": "安德鲁·斯坦顿"
+      "director": "安德鲁·斯坦顿",
+      "quotes": [
+        {
+          "text": "我叫瓦力，我在等你。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 354912,
       "title": "寻梦环游记",
       "original_title": "Coco",
       "year": 2017,
-      "director": "李·昂克里奇"
+      "director": "李·昂克里奇",
+      "quotes": [
+        {
+          "text": "记住我。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 508442,
       "title": "心灵奇旅",
       "original_title": "Soul",
       "year": 2020,
-      "director": "彼特·多克特"
+      "director": "彼特·多克特",
+      "quotes": [
+        {
+          "text": "我要活好接下来的每一分钟。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 14160,
       "title": "飞屋环游记",
       "original_title": "Up",
       "year": 2009,
-      "director": "彼特·多克特"
+      "director": "彼特·多克特",
+      "quotes": [
+        {
+          "text": "谢谢你的冒险，现在去开始新的吧。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 346648,
       "title": "看不见的客人",
       "original_title": "Contratiempo",
       "year": 2016,
-      "director": "奥里奥尔·保罗"
+      "director": "奥里奥尔·保罗",
+      "quotes": [
+        {
+          "text": "你看见的，只是我想让你看见的。",
+          "from_who": ""
+        }
+      ]
     },
     {
       "tmdb_id": 334541,
       "title": "海边的曼彻斯特",
       "original_title": "Manchester by the Sea",
       "year": 2016,
-      "director": "肯尼思·洛纳根"
+      "director": "肯尼思·洛纳根",
+      "quotes": [
+        {
+          "text": "我打不败它，只能带着它活下去。",
+          "from_who": ""
+        }
+      ]
     }
   ]
 }

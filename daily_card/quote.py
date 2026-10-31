@@ -1,55 +1,53 @@
-"""Hitokoto quotes, with a bundled fallback that does not copy film dialogue."""
+"""Quotes that belong to the film on the card."""
 from __future__ import annotations
 
-from datetime import date
-import json
-from pathlib import Path
 import urllib.parse
 
 from daily_card.errors import DailyCardError
 from daily_card.http import get_json
-from daily_card.pick import stable_index
 
 
-FIXTURE = Path(__file__).resolve().parent / "fixtures" / "quotes.json"
 HITOKOTO = "https://v1.hitokoto.cn/"
 
 
-def load_quotes(path: Path | None = None) -> list[dict]:
-    source = path or FIXTURE
-    try:
-        payload = json.loads(source.read_text(encoding="utf-8"))
-    except (OSError, UnicodeError, json.JSONDecodeError):
-        raise DailyCardError("本地句库无法读取。") from None
-    rows = payload.get("quotes") if isinstance(payload, dict) else None
-    if not isinstance(rows, list) or not rows:
-        raise DailyCardError("本地句库是空的。")
-    quotes = []
-    for row in rows:
-        if not isinstance(row, dict):
-            raise DailyCardError("本地句库有一条无法识别。")
-        text = str(row.get("text") or "").strip()
-        if not text or len(text) > 80:
-            raise DailyCardError("本地句库有一条长度不合适。")
-        quotes.append({
-            "text": text,
-            "from": str(row.get("from") or "电影日签句库").strip() or "电影日签句库",
-            "from_who": str(row.get("from_who") or "").strip(),
-            "id": "bundled",
-            "provider": "bundled",
-        })
-    return quotes
+def _norm_title(value: str) -> str:
+    return "".join(char.lower() for char in value if char.isalnum() or "\u4e00" <= char <= "\u9fff")
 
 
-def pick_bundled(day: date, quotes: list[dict] | None = None, index: int | None = None) -> dict:
-    rows = quotes if quotes is not None else load_quotes()
-    if index is None:
-        chosen = stable_index(day, "quote", len(rows))
-    elif isinstance(index, bool) or not isinstance(index, int) or not 0 <= index < len(rows):
-        raise DailyCardError("句库序号超出范围。")
-    else:
-        chosen = index
-    return dict(rows[chosen])
+def same_film(source: str, names: list[str]) -> bool:
+    """True when a quote credit names the same work, not a longer or shorter title."""
+    left = _norm_title(source)
+    if len(left) < 2:
+        return False
+    return any(left == _norm_title(name) for name in names if name)
+
+
+def film_quote(movie: dict, title: str, index: int | None = None) -> dict:
+    """Use a line stored on this film. The card credits that same title."""
+    lines = movie["quotes"]
+    chosen = 0 if index is None else index
+    if isinstance(chosen, bool) or not isinstance(chosen, int) or not 0 <= chosen < len(lines):
+        raise DailyCardError("该片金句序号超出范围。")
+    line = lines[chosen]
+    return {
+        "text": line["text"],
+        "from": title,
+        "from_who": line["from_who"],
+        "id": f"film:{movie['tmdb_id']}:{chosen}",
+        "provider": "film",
+    }
+
+
+def matching_hitokoto(names: list[str], attempts: int = 3) -> dict | None:
+    """Return a Hitokoto line only when its source is this film."""
+    for _ in range(attempts):
+        try:
+            parsed = fetch_hitokoto()
+        except DailyCardError:
+            return None
+        if same_film(parsed["from"], names):
+            return parsed
+    return None
 
 
 def parse_hitokoto(payload: dict) -> dict:

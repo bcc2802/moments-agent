@@ -6,7 +6,7 @@
   "sources": {
     "movie": "fixture",
     "imagery": "generated",
-    "quote": "hitokoto"
+    "quote": "film"
   },
   "movie": {
     "tmdb_id": 77338,
@@ -18,21 +18,21 @@
     "image_ref": "generated"
   },
   "quote": {
-    "text": "爱你所爱，行你所行，听从你心，无问西东。",
-    "from": "无问西东",
+    "text": "我雇的不是一双手，是一个能让我抬头看路的人。",
+    "from": "触不可及",
     "from_who": "",
-    "provider": "hitokoto",
-    "id": "367e7357-d783-4190-8893-ba614fbdc34e"
+    "provider": "film",
+    "id": "film:77338:0"
   },
   "lunar": "农历 丙午年九月廿二",
   "font": "noto-sans-sc",
   "qr": true,
   "notes": [
-    "未设置 TMDB_API_KEY，片名与画面使用本地片单和生成示例。"
+    "已指定本地片单，本次不访问 TMDB 或一言。"
   ],
   "attribution": [
     "影片资料与剧照（若已拉取）来自 TMDB（https://www.themoviedb.org/）。This product uses the TMDB API but is not endorsed or certified by TMDB.",
-    "金句（若已拉取）来自一言 Hitokoto（https://hitokoto.cn/）。本地句库文字为本仓库原文。",
+    "金句与片名必须是同一部电影。一言仅在出处与该片一致时采用；否则使用片单里为该片准备的句子。",
     "画面上的中文优先使用 Noto Sans SC（SIL Open Font License 1.1）。字体文件不随仓库分发。"
   ]
 }

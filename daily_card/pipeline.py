@@ -8,7 +8,7 @@ from daily_card.errors import DailyCardError
 from daily_card.lunar import format_lunar
 from daily_card.model import Card
 from daily_card.pick import pick_movie
-from daily_card.quote import fetch_hitokoto, pick_bundled
+from daily_card.quote import film_quote, matching_hitokoto
 from daily_card.tmdb import fetch_details, fetch_image
 
 
@@ -69,18 +69,26 @@ def build_card(day: date, *, fixture: bool = False, api_key: str | None = None,
             else:
                 notes.append("TMDB 没有剧照路径，已改用生成画面。")
 
+    names = [title, original, chosen["title"], chosen["original_title"], *chosen["aliases"]]
     if quote_index is not None:
-        sentence = pick_bundled(day, index=quote_index)
-        notes.append("已指定本地句库序号，本次不访问一言。")
+        sentence = film_quote(chosen, title, quote_index)
+        notes.append("已指定该片的金句序号，本次不访问一言。")
     elif fixture:
-        sentence = pick_bundled(day)
+        sentence = film_quote(chosen, title)
     else:
-        try:
-            sentence = fetch_hitokoto()
-        except DailyCardError as exc:
-            notes.append(str(exc))
-            notes.append("金句已回退到本地句库。")
-            sentence = pick_bundled(day)
+        matched = matching_hitokoto(names)
+        if matched:
+            sentence = {
+                "text": matched["text"],
+                "from": title,
+                "from_who": matched["from_who"],
+                "id": matched["id"],
+                "provider": "hitokoto",
+            }
+            notes.append("一言出处与这部片子一致，已采用。")
+        else:
+            sentence = film_quote(chosen, title)
+            notes.append("一言没有给出这部片子的句子，已改用片单里该片的金句。")
 
     return Card(
         day=day,
