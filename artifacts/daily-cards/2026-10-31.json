@@ -1,0 +1,38 @@
+{
+  "status": "OK",
+  "date": "2026-10-31",
+  "output": "artifacts/daily-cards/2026-10-31.png",
+  "metadata": "artifacts/daily-cards/2026-10-31.json",
+  "sources": {
+    "movie": "fixture",
+    "imagery": "generated",
+    "quote": "hitokoto"
+  },
+  "movie": {
+    "tmdb_id": 77338,
+    "title": "触不可及",
+    "original_title": "Intouchables",
+    "director": "奥利维耶·纳卡什、埃里克·托莱达诺",
+    "year": 2011,
+    "qr_url": "https://www.themoviedb.org/movie/77338",
+    "image_ref": "generated"
+  },
+  "quote": {
+    "text": "爱你所爱，行你所行，听从你心，无问西东。",
+    "from": "无问西东",
+    "from_who": "",
+    "provider": "hitokoto",
+    "id": "367e7357-d783-4190-8893-ba614fbdc34e"
+  },
+  "lunar": "农历 丙午年九月廿二",
+  "font": "noto-sans-sc",
+  "qr": true,
+  "notes": [
+    "未设置 TMDB_API_KEY，片名与画面使用本地片单和生成示例。"
+  ],
+  "attribution": [
+    "影片资料与剧照（若已拉取）来自 TMDB（https://www.themoviedb.org/）。This product uses the TMDB API but is not endorsed or certified by TMDB.",
+    "金句（若已拉取）来自一言 Hitokoto（https://hitokoto.cn/）。本地句库文字为本仓库原文。",
+    "画面上的中文优先使用 Noto Sans SC（SIL Open Font License 1.1）。字体文件不随仓库分发。"
+  ]
+}

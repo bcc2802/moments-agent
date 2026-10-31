@@ -25,6 +25,13 @@ tests/v02/*-test-run.json
 local-evidence/
 output/
 node_modules/
+daily_card/fonts/*.ttf
+daily_card/fonts/*.otf
+daily_card/fonts/*.ttc
+artifacts/daily-cards/*
+!artifacts/daily-cards/2026-10-31.png
+!artifacts/daily-cards/2026-10-31.json
+!artifacts/daily-cards/README.md
 .wrangler/
 dist/
 *.zip.manifest.json
