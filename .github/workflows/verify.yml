@@ -34,7 +34,13 @@ jobs:
         run: |
           $MomentsEvidence = Join-Path $env:RUNNER_TEMP ('moments-verify-' + '${{ matrix.python }}')
           python -B scripts/verify_release.py --core-only --output-dir $MomentsEvidence
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $MomentsExit = $LASTEXITCODE
+          if ($MomentsExit -ne 0) {
+            # The verifier uses synthetic fixtures only; include failures for diagnosis.
+            $MomentsLog = Join-Path $MomentsEvidence 'unittest-output.txt'
+            if (Test-Path -LiteralPath $MomentsLog) { Get-Content -LiteralPath $MomentsLog -Encoding utf8 }
+            exit $MomentsExit
+          }
 
   cloud:
     name: Cloudflare / Node 24
