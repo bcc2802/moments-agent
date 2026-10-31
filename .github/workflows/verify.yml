@@ -1,0 +1,85 @@
+name: Verify workbench
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  local:
+    name: Windows / Python ${{ matrix.python }}
+    runs-on: windows-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.12', '3.13']
+    env:
+      PYTHONUTF8: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Verify local workflow with synthetic data
+        shell: pwsh
+        run: |
+          $MomentsEvidence = Join-Path $env:RUNNER_TEMP ('moments-verify-' + '${{ matrix.python }}')
+          python -B scripts/verify_release.py --core-only --output-dir $MomentsEvidence
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+  cloud:
+    name: Cloudflare / Node 24
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: cloudflare
+    env:
+      CI: 'true'
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: cloudflare/package-lock.json
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Test isolated database and model adapters
+        run: npm test
+      - name: Check frontend JavaScript
+        run: |
+          node --check ../web/app.js
+          node --check public/moments/app.js
+      - name: Validate Worker bundle without deploying
+        run: npm run deploy:check
+
+  release:
+    name: Release allowlist and documentation links
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: '3.13'
+      - name: Audit exact files, license, syntax and local links
+        run: python -B scripts/release.py check

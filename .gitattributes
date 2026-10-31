@@ -1,0 +1,3 @@
+# Preserve reviewed release bytes on every checkout, including Windows launchers.
+# Diff remains automatic; only implicit line-ending conversion is disabled.
+* -text
